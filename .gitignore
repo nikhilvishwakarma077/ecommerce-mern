@@ -11,6 +11,7 @@ frontend/build/
 backend/dist/
 build/
 dist/
+frontend/src/assets
 
 # Logs
 npm-debug.log*

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import axios from "axios"
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function RegisterForm() {
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         role: 'customer'
     });
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,12 +22,7 @@ export default function RegisterForm() {
     };
 
     const handleSubmit = async () => {
-        // if (!formData.name || !formData.email || !formData.password) {
-        //     alert('Please fill in all fields');
-        //     return;
-        // }
-        // console.log('Form submitted:', formData);
-        // alert(`Registration submitted!\nName: ${formData.name}\nEmail: ${formData.email}\nRole: ${formData.role}`);
+
 
         try {
             if (!formData.name || !formData.email || !formData.password) {
@@ -33,7 +30,8 @@ export default function RegisterForm() {
                 return;
             }
             const response = await axios.post("http://localhost:3000/api/auth/register", formData)
-            console.log(response.data);
+            // console.log(response.data);   
+
             setFormData({
                 name: '',
                 email: '',
@@ -41,6 +39,8 @@ export default function RegisterForm() {
                 role: 'customer'
             })
             response.data.success ? toast.success(response.data.message) : toast.error(response.data.message)
+            navigate("/login")
+
 
         } catch (error) {
             console.log(error.message);

@@ -37,7 +37,18 @@ export default function LoginForm() {
                 role: 'customer'
             })
             toast.success(response.data.message)
-            navigate("/home")
+
+            const { token, user } = response.data
+            localStorage.setItem("token", token)
+
+            if (user.role === "admin") {
+                navigate("/admin")
+            } else if (user.role === "vendor") {
+                navigate("/vendor")
+            } else {
+                navigate("/home")
+            }
+
         } else {
             toast.error(response.data.message)
         }
