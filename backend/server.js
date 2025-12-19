@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import connectDB from './config/db.js';
 import userRouter from './routes/authRoutes.js';
+import testRouter from './routes/testRoutes.js';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/auth", userRouter)
+app.use("/api/test", testRouter);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}...`);
