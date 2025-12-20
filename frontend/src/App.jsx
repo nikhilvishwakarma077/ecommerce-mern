@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Admindashboard from './pages/admin/Admindashboard';
 import VendorPage from './pages/vendor/VendorPage';
 import Navbar from './components/common/Navbar';
+import AddProduct from './pages/admin/AddProduct';
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
         <Route path='/' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/admin' element={<Admindashboard />} />
+        <Route path='/admin' element={<Admindashboard />} /> 
+        <Route path='/admin/add' element={<AddProduct />} /> 
         <Route path='/vendor' element={<VendorPage />} />
       </Routes>
     </>

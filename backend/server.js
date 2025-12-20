@@ -5,7 +5,8 @@ import dotenv from "dotenv"
 dotenv.config()
 import connectDB from './config/db.js';
 import userRouter from './routes/authRoutes.js';
-import testRouter from './routes/testRoutes.js';
+import productRouter from './routes/productRoutes.js';
+import { errorHandler } from './middleware/errorMiddleware.js';
 
 const app = express();
 
@@ -22,7 +23,9 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/auth", userRouter)
-app.use("/api/test", testRouter);
+app.use("/api/product", productRouter)
+
+app.use(errorHandler);
 
 
 app.listen(port, () => {

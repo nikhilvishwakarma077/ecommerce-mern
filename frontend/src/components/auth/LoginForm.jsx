@@ -42,7 +42,7 @@ export default function LoginForm() {
             localStorage.setItem("token", token)
 
             if (user.role === "admin") {
-                navigate("/admin")
+                navigate("/admin/add")
             } else if (user.role === "vendor") {
                 navigate("/vendor")
             } else {
