@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import userRouter from './routes/authRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
+import cartRouter from './routes/cartRoutes.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/auth", userRouter)
 app.use("/api/product", productRouter)
+app.use("/api/cart/",cartRouter)
 
 app.use(errorHandler);
 
