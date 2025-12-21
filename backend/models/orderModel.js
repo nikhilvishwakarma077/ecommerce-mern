@@ -34,6 +34,10 @@ const orderSchema = new mongoose.Schema(
     items: {
       type: [orderItemSchema],
       required: true,
+      validate: {
+        validator: (v) => v.length > 0,
+        message: "Order must have at least one item",
+      },
     },
 
     totalAmount: {
