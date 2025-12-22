@@ -1,104 +1,64 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, ShoppingCart } from 'lucide-react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+
+  const token = localStorage.getItem("token")
   const navigate = useNavigate()
 
-  const redirectToRegister = () => {
-    navigate("/")
-  }
-  const redirectToLogin = () => {
+  const logout = () => {
     navigate("/login")
+    // localStorage.removeItem("token")
   }
 
-return (
-    <nav className="bg-[#0a0a0a] border-b border-[#262626] px-4 sm:px-6 lg:px-8 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        
-        {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer group">
-          <div className="w-10 h-10 bg-[#3b82f6] rounded-lg flex items-center justify-center font-bold text-white text-xl group-hover:shadow-lg group-hover:shadow-[#3b82f6]/40 transition-all duration-300">
-            V
+  return (
+    <header className="bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div
+            onClick={() => {
+              navigate("/home")
+            }}
+            className="flex items-center gap-2 ">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-semibold text-gray-900">Vendra</span>
           </div>
-          <span className="text-[#e5e5e5] font-semibold text-lg hidden sm:block">
-            Vendra
-          </span>
-        </div>
 
-        {/* Search Bar - Desktop */}
-        <div className="hidden md:flex flex-1 max-w-xl relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#666]" />
-          <input
-            type="text"
-            placeholder="Search products, categories..."
-            className="w-full bg-[#141414] border border-[#262626] text-[#e5e5e5] placeholder:text-[#666] rounded-lg pl-12 pr-4 py-2.5 text-sm outline-none focus:border-[#3b82f6] focus:ring-2 focus:ring-[#3b82f6]/20 transition-all"
-          />
-        </div>
+          <nav className="hidden md:flex gap-8">
+            <a href="#" className="text-blue-600 font-medium hover:text-blue-700">Products</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">Categories</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">Deals</a>
+          </nav>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium transition-colors">
-            Categories
-          </button>
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium transition-colors">
-            Sell
-          </button>
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium transition-colors"
-          onClick={redirectToLogin}
-          >
-            Log In
-          </button>
-          <button className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg hover:shadow-[#3b82f6]/30 transition-all duration-300"
-          onClick={redirectToRegister}
-          >
-            Sign Up
-          </button>
-        </div>
+          <div className="flex items-center gap-4">
+            <button className="relative p-2">
+              <ShoppingCart className="w-6 h-6 text-gray-600" />
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center ">
+                {"1"}
+              </span>
+            </button>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-[#e5e5e5] p-2 hover:bg-[#141414] rounded-lg transition-colors"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+            {token ? (
+              <button
+                onClick={logout}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Logout
+              </button>
+            ) : (
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Login
+              </button>
+            )
+            }
+
+          </div>
+        </div>
       </div>
-
-      {/* Search Bar - Mobile */}
-      <div className="md:hidden mt-4 relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#666]" />
-        <input
-          type="text"
-          placeholder="Search products, categories..."
-          className="w-full bg-[#141414] border border-[#262626] text-[#e5e5e5] placeholder:text-[#666] rounded-lg pl-12 pr-4 py-2.5 text-sm outline-none focus:border-[#3b82f6] focus:ring-2 focus:ring-[#3b82f6]/20 transition-all"
-        />
-      </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden mt-4 flex flex-col gap-3 pb-4 border-t border-[#262626] pt-4">
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium text-left py-2 px-3 hover:bg-[#141414] rounded-lg transition-all">
-            Categories
-          </button>
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium text-left py-2 px-3 hover:bg-[#141414] rounded-lg transition-all">
-            Sell
-          </button>
-          <button className="text-[#a3a3a3] hover:text-[#e5e5e5] text-sm font-medium text-left py-2 px-3 hover:bg-[#141414] rounded-lg transition-all"
-          onClick={redirectToLogin}
-          >
-            Log In
-          </button>
-          <button className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:shadow-lg hover:shadow-[#3b82f6]/30 transition-all duration-300"
-          onClick={redirectToRegister}
-          >
-            Sign Up
-          </button>
-        </div>
-      )}
-    </nav>
-  );
+    </header>
+  )
 }
 
 export default Navbar

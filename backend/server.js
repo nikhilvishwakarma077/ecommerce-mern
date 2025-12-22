@@ -12,10 +12,15 @@ import orderRouter from './routes/orderRoutes.js';
 
 const app = express();
 
+
+const corsOptions = {
+    origin: 'http://localhost:5173', // Explicitly allowed origin
+    credentials: true, // Allow the browser to send cookies/credentials
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+}
 app.use(express.json())
-app.use(cors({
-    origin: "*"
-}))
+app.use(cors(corsOptions))
 connectDB()
 
 const port = process.env.PORT || 5000;
@@ -26,7 +31,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/auth", userRouter)
 app.use("/api/product", productRouter)
-app.use("/api/cart/",cartRouter)
+app.use("/api/cart/", cartRouter)
 app.use("/api/orders", orderRouter)
 
 app.use(errorHandler);
