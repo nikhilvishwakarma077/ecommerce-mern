@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ShoppingBag, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
           <div className="flex gap-2">
             <button
               onClick={() => {
-                navigate("/product/123")
+                navigate(`/product/${product._id}`)
               }}
               className="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
               Details

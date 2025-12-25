@@ -9,20 +9,27 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Footer from './components/common/Footer';
 import Navbar from './components/common/Navbar';
+import { AuthLayout } from './layouts/AuthLayout';
+import { MainLayout } from './layouts/MainLayout';
 
 const App = () => {
   return (
     <>
       <ToastContainer />
-      <Navbar />
-      <Routes >
-        <Route path='/' element={<Register />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/product/:id' element={<ProductDetails />} />
-        <Route path='/cart' element={<Cart />} />
+      <Routes>
+        {/* Auth pages – NO navbar/footer */}
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        {/* Main app – WITH navbar/footer */}
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+        </Route>
       </Routes>
-      <Footer />
     </>
   )
 }
