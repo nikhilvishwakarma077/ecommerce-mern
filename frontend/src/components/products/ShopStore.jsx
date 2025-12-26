@@ -3,22 +3,16 @@ import ProductCard from "./ProductCard";
 import { AppContext } from "../../context/AppContext";
 
 
-
-
 const ShopStore = () => {
 
   const{ allProducts } = useContext(AppContext)
 
   console.log(allProducts);
   
-
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
 
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -39,7 +33,6 @@ const ShopStore = () => {
           </div>
         </div>
 
-        {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {allProducts.map(product => (
             <ProductCard key={product._id} product={product} />
