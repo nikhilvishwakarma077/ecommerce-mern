@@ -1,68 +1,52 @@
-import { createContext, useContext, useState } from "react";
+// src/context/CartContext.jsx
+import { createContext, useContext, useEffect, useState } from "react";
+import {
+  getCartAPI,
+  addToCartAPI,
+  updateCartAPI,
+  removeFromCartAPI,
+} from "../api/cart.api";
 
 const CartContext = createContext();
 
-const dummyCartItems = [
-  {
-    _id: "1",
-    name: "iPhone 15",
-    price: 79999,
-    image: "https://via.placeholder.com/80",
-    quantity: 1,
-  },
-  {
-    _id: "2",
-    name: "AirPods Pro",
-    price: 24999,
-    image: "https://via.placeholder.com/80",
-    quantity: 2,
-  },
-];
-
 export const CartProvider = ({ children }) => {
-    
-  const [items, setItems] = useState(dummyCartItems);
-  const [loading] = useState(false);
+  const [cart, setCart] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const increaseQty = (id) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item._id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    );
+  const fetchCart = async () => {
+    setLoading(true);
+    const { data } = await getCartAPI();
+    setCart(data.cart);
+    setLoading(false);
   };
 
-  const decreaseQty = (id) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item._id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
+  const addToCart = async (productId, quantity = 1) => {
+    const { data } = await addToCartAPI(productId, quantity);
+    setCart(data.cart);
   };
 
-  const removeItem = (id) => {
-    setItems((prev) => prev.filter((item) => item._id !== id));
+  const updateCart = async (productId, quantity) => {
+    const { data } = await updateCartAPI(productId, quantity);
+    setCart(data);
   };
 
-  const subtotal = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const removeItem = async (productId) => {
+    const { data } = await removeFromCartAPI(productId);
+    setCart(data.cart);
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   return (
     <CartContext.Provider
       value={{
-        items,
+        cart,
         loading,
-        increaseQty,
-        decreaseQty,
+        addToCart,
+        updateCart,
         removeItem,
-        subtotal,
-        itemCount: items.length,
       }}
     >
       {children}
