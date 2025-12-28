@@ -10,6 +10,9 @@ import {
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+
+
+
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +47,7 @@ export const CartProvider = ({ children }) => {
       value={{
         cart,
         loading,
+        fetchCart,
         addToCart,
         updateCart,
         removeItem,

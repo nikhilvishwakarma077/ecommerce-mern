@@ -1,10 +1,17 @@
 import React from 'react';
 import { ShoppingBag, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { addToCartAPI } from '../../api/cart.api';
 
 const ProductCard = ({ product }) => {
 
   const navigate = useNavigate()
+
+  const onAddToCart = (pId, quantity = 1) => {
+
+    addToCartAPI(pId, quantity)
+    navigate("/cart")
+  }
 
 
 
@@ -32,7 +39,8 @@ const ProductCard = ({ product }) => {
             </button>
             <button
               onClick={() => {
-                navigate("/cart")
+                onAddToCart(product._id)
+
               }}
               className="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors">
               Add to Cart

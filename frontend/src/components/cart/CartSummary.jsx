@@ -4,7 +4,20 @@ const CartSummary = ({ items }) => {
     0
   );
 
-  return <h3>Total: ₹{total}</h3>;
+  return (
+    <div className="mt-6 p-5 bg-gray-800 text-white rounded-lg shadow-lg">
+      <div className="flex justify-between text-lg font-semibold">
+        <span>Total</span>
+        <span>₹{total}</span>
+      </div>
+
+      <button
+        className="mt-4 w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-medium"
+      >
+        Place Order
+      </button>
+    </div>
+  );
 };
 
 export default CartSummary;

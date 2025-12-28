@@ -11,8 +11,11 @@ const Cart = () => {
 
   return (
     <>
-      <CartList items={cart.items} />
-      <CartSummary items={cart.items} />
+      <div className=" w-150 border  p-5 m-10">
+
+        <CartList items={cart.items} />
+        <CartSummary items={cart.items} />
+      </div>
     </>
   );
 };

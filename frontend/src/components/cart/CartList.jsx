@@ -1,9 +1,13 @@
 import CartItem from "./CartItem";
 
 const CartList = ({ items }) => {
-  return items.map((item) => (
-    <CartItem key={item.productId._id} item={item} />
-  ));
+  return (
+    <div className="flex flex-col gap-4">
+      {items.map((item,index) => (
+        <CartItem key={index} item={item} />
+      ))}
+    </div>
+  );
 };
 
 export default CartList;
