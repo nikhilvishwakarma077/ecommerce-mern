@@ -11,6 +11,8 @@ import Footer from './components/common/Footer';
 import Navbar from './components/common/Navbar';
 import { AuthLayout } from './layouts/AuthLayout';
 import { MainLayout } from './layouts/MainLayout';
+import AddProduct from './pages/admin/AddProduct';
+import Checkout from './pages/Checkout';
 
 const App = () => {
   return (
@@ -28,6 +30,9 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/admin" element={<AddProduct />} />
+          <Route path="/checkout" element={<Checkout />} />
+
         </Route>
       </Routes>
     </>

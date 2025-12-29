@@ -5,6 +5,7 @@ export const placeOrder = async (req, res) => {
     try {
         const { userId } = req.user;
 
+
         const cart = await cartModel.findOne({ userId }).populate("items.productId");
 
         if (!cart || cart.items.length === 0) {
@@ -28,6 +29,7 @@ export const placeOrder = async (req, res) => {
             totalAmount,
             status: "PENDING",
         });
+
 
         cart.items = [];
         await cart.save();
